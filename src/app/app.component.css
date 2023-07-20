@@ -1,0 +1,21 @@
+.flex {
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+    align-items: center; /* Center vertically */
+  }
+  
+  .p-input-icon-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .p-input-icon-right input {
+    padding-right: 0.5rem; /* Adjust padding to make room for the icon */
+  }
+  
+  /* .p-input-icon-right i {
+    position: absolute;
+    right: 0.5rem;
+  } */
+  
