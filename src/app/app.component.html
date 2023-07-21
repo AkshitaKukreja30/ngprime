@@ -12,7 +12,7 @@
  styleClass="p-datatable-gridlines"> -->
 
 <!-- For lazy loading data into table (ghost loading) -->
-<p-table #dt1 [columns]="cols" [value]="responseData" [globalFilterFields]="['first_name', 'email']"  [(selection)]="selectedData" [rows]="10"
+<p-table #dt1 [columns]="cols" [value]="responseData" [globalFilterFields]="['first_name', 'email']"  [(selection)]="selectedData" [rows]="5"
  [tableStyle]="{ 'min-width': '50rem' , 'max-height':'520rem'}" [lazy]="true" (onLazyLoad)="onVirtualScroll($event)" [scrollable]="true" scrollHeight="1000px" [virtualScroll]="true" [virtualScrollItemSize]="10"
  styleClass="p-datatable-gridlines">
 
