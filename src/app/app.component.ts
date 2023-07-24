@@ -9,22 +9,19 @@ import { TableLazyLoadEvent } from 'primeng/table';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AppComponent implements OnInit{
   lastScrollPosition: number = 0;
   dt1: any;
 
-  // constructor(private dataService: DataService, private chandeDetection: ChangeDetectorRef) {}
-
   constructor(private dataService: DataService) {}
 
   responseData: any[] = [];
   cols: any[] = [];
   selectedData : any;
-  loading: boolean = false;
-  hasloaded: boolean = false;
+  // loading: boolean = false;
+  // hasloaded: boolean = false;
 
   offset: number = 0;
   limit: number = 20;
@@ -48,11 +45,13 @@ export class AppComponent implements OnInit{
       // Add more column definitions here
     ];
 
-      this.dataService.getData(0,20).subscribe(response => {
+    //initial length for ghost loading
+    this.responseData.length = 10;
+      this.dataService.getData(0,40).subscribe(response => {
         this.responseData = response.users;
         this.totalRecords = this.responseData.length;
         console.log(this.responseData);
-        this.offset += this.limit;   
+        this.offset = 40;   
       });
 
       // The tap operator can be used at any point within an Observable pipeline.
@@ -69,55 +68,27 @@ export class AppComponent implements OnInit{
     // const lastRowOffset = event.first + event.rows;
   
     // if (lastRowOffset >= lastRowOfCurrentPage)
-        this.lastRowOffset = event.first + event.rows;
-        this.totalRecords = this.responseData.length;
+    this.lastRowOffset = event.first + event.rows;
+    this.totalRecords = this.responseData.length;
 
     // This condition checks if the last row's offset matches the total number of records
     // indicating that the last row is visible, and we need to load more data to continue scrolling.
 
-    if(this.lastRowOffset === this.totalRecords && this.responseData.length>0){
+    if(event.last == this.responseData.length && this.responseData.length>10){
       this.dataService.getData(this.offset, this.limit).subscribe(response => {
         this.responseData = [...this.responseData, ...response.users];
         this.offset += this.limit;        
-        this.loading = false;
-        this.hasloaded = true;
-      });
-    }
-  }
-
-
-  // @HostListener('window:scroll', ['$event'])
-  onTableScroll(event: Event) {
-    const scrollY = window.scrollY;
-    if (scrollY > this.lastScrollPosition && !this.loading) {
-      // this.page++;
-      this.offset += this.limit;
-      this.loadMoreDataOnScroll();
-      this.lastScrollPosition = scrollY;
-    }
-  }
-
-  
-
-  loadMoreDataOnScroll() {
-
-    this.loading = true;
-      this.dataService.getData(this.offset, this.limit).pipe(tap((response) => {
-        this.responseData = [...this.responseData, ...response.users];
         //this.loading = false;
-        // console.log(this.responseData);
-      })).subscribe(response => {
-        this.loading = false;
+        //this.hasloaded = true;
       });
+    }
+    //event.forceUpdate();
   }
+ 
 
   loopArray(n: number): number[] {
     return Array.from({ length: n }, (_, index) => index + 1);
   }
-
-  // ngOnDestroy() {
-  //   window.removeEventListener('scroll', this.onWindowScroll);
-  // }
 
  
 }

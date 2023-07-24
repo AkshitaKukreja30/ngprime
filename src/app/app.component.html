@@ -6,11 +6,7 @@
 <!-- [paginator]="true" [reorderableColumns]="true" -->
 
 
-<!-- For API call on scroll -->
-<!-- <p-table #dt1 [columns]="cols" [value]="responseData" [globalFilterFields]="['first_name', 'email']"  [(selection)]="selectedData" [rows]="10"
- [tableStyle]="{ 'mo-width': '500px' , 'max-height':'200px'}" [scrollable]="true" scrollHeight="1000px" [virtualScroll]="true" [virtualScrollItemSize]="10" [lazy]="true"
- styleClass="p-datatable-gridlines"> -->
-
+<!-- rows * virtualScrollItemSize = scrollHeight -->
 <!-- For lazy loading data into table (ghost loading) -->
 <p-table #dt1 [columns]="cols" [value]="responseData" [globalFilterFields]="['first_name', 'email']"  [(selection)]="selectedData"
  scrollHeight="500px"
@@ -30,7 +26,7 @@
     </div>
 </ng-template>
 <ng-template pTemplate="header" let-columns>
-    <tr style="height:46px">
+    <tr style="height:50px">
       <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
         <th *ngFor="let col of columns">
             {{ col.header }}
@@ -42,7 +38,7 @@
 <!-- The loadingbody template is used to customize the content displayed when the table is in a loading state, such as when data is being fetched or processed. -->
 
 <ng-template pTemplate="loadingbody">
-  <tr style="height: 46px">
+  <tr style="height: 50px">
     <td *ngFor="let item of loopArray(10)">
       <p-skeleton></p-skeleton>
     </td>
@@ -51,7 +47,7 @@
 
 
 <ng-template pTemplate="body" let-rowData let-columns="columns">
-  <tr style="height:46px">
+  <tr style="height:50px">
     <td>
       <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
     </td>
