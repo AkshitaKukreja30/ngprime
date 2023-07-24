@@ -61,46 +61,6 @@ export class AppComponent implements OnInit{
 
   }
   
-  // onVirtualScroll(event: any){
-
-  //   // const firstRowOfCurrentPage = (this.currentPage - 1) * limit;
-  //   // const lastRowOfCurrentPage = this.currentPage * limit;
-  //   // const lastRowOffset = event.first + event.rows;
-  
-  //   // if (lastRowOffset >= lastRowOfCurrentPage)
-  //       this.lastRowOffset = event.first + event.rows;
-  //       this.totalRecords = this.responseData.length;
-
-
-  //   // This condition checks if the last row's offset matches the total number of records
-  //   // indicating that the last row is visible, and we need to load more data to continue scrolling.
-
-  //   if(this.lastRowOffset === this.totalRecords){
-    
-  //     this.dataService.getData(this.offset, this.limit).pipe(tap((response) => {
-  //       this.responseData = [...this.responseData, ...response.users];
-
-  //       this.offset += this.limit;        
-
-  //       //this.responseData.splice(0, this.responseData.length, ...response.users);
-  //       //this.responseData.splice(this.responseData.length,0, ...response.users);
-
-
-  //       //let currentData = this.responseData.slice(event.first, event.first + event.rows);
-  //       //Array.prototype.splice.apply(this.responseData, [...[event.first, event.rows], ...currentData]);
-
-  //       //Array.prototype.splice.apply(this.responseData,  [this.responseData.length,0,...response.users]);
-  //       console.log(this.responseData);
-  //       //event.forceUpdate();
-  //       //this.chandeDetection.detectChanges();
-  //     })).subscribe(response => {
-
-  //       this.loading = false
-  //     });
-  //   }
-  // }
-
-
 
   onVirtualScroll(event: any){
    
