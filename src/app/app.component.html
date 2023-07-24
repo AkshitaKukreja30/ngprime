@@ -8,8 +8,11 @@
 
 <!-- rows * virtualScrollItemSize = scrollHeight -->
 <!-- For lazy loading data into table (ghost loading) -->
+<!-- 250px -> 4 rows
+500px -> 8 rows
+600px -> 10 rows -->
 <p-table #dt1 [columns]="cols" [value]="responseData" [globalFilterFields]="['first_name', 'email']"  [(selection)]="selectedData"
- scrollHeight="500px"
+ scrollHeight="600px"
  [virtualScroll]="true"
  [virtualScrollItemSize]="50"
  [rows]="10"

@@ -68,8 +68,8 @@ export class AppComponent implements OnInit{
     // const lastRowOffset = event.first + event.rows;
   
     // if (lastRowOffset >= lastRowOfCurrentPage)
-    this.lastRowOffset = event.first + event.rows;
-    this.totalRecords = this.responseData.length;
+    //this.lastRowOffset = event.first + event.rows;
+    //this.totalRecords = this.responseData.length;
 
     // This condition checks if the last row's offset matches the total number of records
     // indicating that the last row is visible, and we need to load more data to continue scrolling.
