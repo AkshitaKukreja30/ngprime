@@ -3,6 +3,7 @@ import { DataService } from './api-service.service';
 import { tap } from 'rxjs/operators';
 import { LazyLoadEvent } from 'primeng/api';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { ViewportScroller } from '@angular/common';
 
 
 @Component({
@@ -32,21 +33,21 @@ export class AppComponent implements OnInit{
   ngOnInit() {
 
     this.cols = [
-      { field: 'id', header: 'Id' },
-      { field: 'first_name', header: 'First Name' },
-      { field: 'email', header: 'Email' },
-      { field: 'date_of_birth', header: 'DOB' },
-      { field: 'country', header: 'Country' },
-      { field: 'city', header: 'City' },
-      { field: 'state', header: 'State' },
-      { field: 'zipcode', header: 'Zipcode' },
-      { field: 'phone', header: 'Phone' },
+      { field: 'id', header: 'Id' ,  frozen: true, direction:'left'},
+      { field: 'first_name', header: 'First Name' ,  frozen: false},
+      { field: 'email', header: 'Email',  frozen: false },
+      { field: 'date_of_birth', header: 'DOB', frozen: false},
+      { field: 'country', header: 'Country', frozen: false },
+      { field: 'city', header: 'City', frozen: false },
+      { field: 'state', header: 'State' , frozen: false},
+      { field: 'zipcode', header: 'Zipcode' , frozen: true, direction:'right'},
+      { field: 'phone', header: 'Phone' , frozen: true, direction:'right'},
   
       // Add more column definitions here
     ];
 
     //initial length for ghost loading
-    this.responseData.length = 10;
+     this.responseData.length = 10;
       this.dataService.getData(0,40).subscribe(response => {
         this.responseData = response.users;
         this.totalRecords = this.responseData.length;
@@ -63,6 +64,18 @@ export class AppComponent implements OnInit{
 
   onVirtualScroll(event: any){
    
+
+    // event.first  -> index of first item in the viewport
+    // event.rows   -> num of rows in viewport
+    // event.last   -> index of last item in viewport
+
+
+    // viewport -> 10
+
+
+
+
+
     // const firstRowOfCurrentPage = (this.currentPage - 1) * limit;
     // const lastRowOfCurrentPage = this.currentPage * limit;
     // const lastRowOffset = event.first + event.rows;
@@ -78,11 +91,8 @@ export class AppComponent implements OnInit{
       this.dataService.getData(this.offset, this.limit).subscribe(response => {
         this.responseData = [...this.responseData, ...response.users];
         this.offset += this.limit;        
-        //this.loading = false;
-        //this.hasloaded = true;
       });
     }
-    //event.forceUpdate();
   }
  
 

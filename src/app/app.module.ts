@@ -11,6 +11,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { AnimateModule } from 'primeng/animate';
+import { DragDropModule } from 'primeng/dragdrop';
+import { InplaceModule } from 'primeng/inplace';
 
 // Import PrimeNG modules
 import { TableModule } from 'primeng/table';
@@ -33,7 +35,9 @@ import { AppComponent } from './app.component';
     PaginatorModule,
     ScrollPanelModule,
     ScrollTopModule,
-    AnimateModule
+    AnimateModule,
+    DragDropModule,
+    InplaceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

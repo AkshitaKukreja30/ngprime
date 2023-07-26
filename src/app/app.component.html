@@ -1,4 +1,4 @@
-<h1>Ng Prime Table Example</h1>
+<h1>Working ghost loading, infinite and horizontal scroll with frozen and resizable cols</h1>
 
 <div class="card">
 
@@ -12,13 +12,18 @@
 500px -> 8 rows
 600px -> 10 rows -->
 <p-table #dt1 [columns]="cols" [value]="responseData" [globalFilterFields]="['first_name', 'email']"  [(selection)]="selectedData"
- scrollHeight="600px"
+ scrollHeight="500px"
+ [resizableColumns]="true"
+ columnResizeMode="expand"
+ [reorderableColumns]="true"
  [virtualScroll]="true"
  [virtualScrollItemSize]="50"
  [rows]="10"
  [lazy]="true"
  (onLazyLoad)="onVirtualScroll($event)"
- styleClass="p-datatable-gridlines">
+ styleClass="p-datatable-gridlines"
+ [scrollable]="true"
+ >
 
   <ng-template pTemplate="caption">
     <div class="flex">  
@@ -28,13 +33,35 @@
         </span>
     </div>
 </ng-template>
+
 <ng-template pTemplate="header" let-columns>
-    <tr style="height:50px">
-      <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-        <th *ngFor="let col of columns">
-            {{ col.header }}
-        </th>
-    </tr>
+  <tr>
+    <th pFrozenColumn><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+      <ng-container *ngFor="let col of columns">
+          <ng-container
+              *ngIf="col?.frozen; else NonFrozenColumn"
+          >
+              <th
+                  title="{{ col.header }}"
+                  pResizableColumn
+                  pFrozenColumn
+                  [alignFrozen]="col?.direction === 'right' ? 'right' : 'left'"
+              >
+                  {{ col.header }}
+              </th>
+          </ng-container>
+
+          <ng-template #NonFrozenColumn>
+              <th
+                  title="{{ col.header }}"
+                  pResizableColumn
+                  pReorderableColumn
+              >
+                  {{ col.header }}
+              </th>
+          </ng-template>
+      </ng-container>
+  </tr>
 </ng-template>
 
 <!-- ghost loading -->
@@ -49,16 +76,33 @@
 </ng-template>
 
 
-<ng-template pTemplate="body" let-rowData let-columns="columns">
-  <tr style="height:50px">
-    <td>
-      <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-    </td>
-      <td *ngFor="let col of columns">
-          {{ rowData[col.field] }}
-      </td>
-  </tr>
-</ng-template>
+     <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr style="height: 50px;">
+          <td pFrozenColumn><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+            <ng-container *ngFor="let col of columns">
+                <ng-container
+                    *ngIf="col?.frozen; else NonFrozenColumn"
+                >
+                    <td
+                        pFrozenColumn
+                        [alignFrozen]="col?.direction === 'right' ? 'right' : 'left'"
+                    >
+                    {{ rowData[col.field] }}
+                    </td>
+                </ng-container>
+      
+                <ng-template #NonFrozenColumn>
+                    <td
+                    >
+                    {{ rowData[col.field] }}
+                    </td>
+                </ng-template>
+            </ng-container>
+        </tr>
+      </ng-template>
+
+      
+
 
 </p-table>
 </div>
